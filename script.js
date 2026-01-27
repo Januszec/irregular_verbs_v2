@@ -5,18 +5,20 @@ let correct = 0;
 
 const statsKey = "quizStats";
 
-fetch("lessons/index.json")
-  .then(res => res.json())
-  .then(data => {
-    lessons = data;
-    populateLessons();
-  });
+function loadLesson(name) {
+  fetch("lessons/" + lessonsIndex[name])
+    .then(res => res.json())
+    .then(data => {
+      lessons = data;
+    })
+    .catch(err => console.error("Błąd lekcji:", err));
+}
 
 function populateLessons() {
   const select = document.getElementById("lessonSelect");
-  select.innerHTML = "";
+  select.innerHTML = "<option value=''>-- wybierz lekcję --</option>";
 
-  Object.keys(lessons).forEach(name => {
+  Object.keys(lessonsIndex).forEach(name => {
     const opt = document.createElement("option");
     opt.value = name;
     opt.textContent = name;

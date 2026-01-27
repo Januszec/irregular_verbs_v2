@@ -5,7 +5,7 @@ let correct = 0;
 
 const statsKey = "quizStats";
 
-fetch("index.json")
+fetch("lessons/index.json")
   .then(res => res.json())
   .then(data => {
     lessons = data;

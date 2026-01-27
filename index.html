@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz językowy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 10px;
+      background: #f5f5f5;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+
+    button.secondary {
+      background: #6c757d;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .word {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+      }
+    }
+
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .stats-table th,
+    .stats-table td {
+      border: 1px solid #ddd;
+      padding: 6px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Quiz językowy</h1>
+
+<div class="card">
+  <select id="lessonSelect"></select>
+  <button onclick="startQuiz()">Start quizu</button>
+  <button class="secondary" onclick="showStats()">📊 Statystyki</button>
+</div>
+
+<div id="quizScreen" class="card hidden">
+  <div class="word" id="question"></div>
+
+  <input id="answerInput" placeholder="Twoja odpowiedź" />
+
+  <div class="row">
+    <button onclick="checkAnswer()">Sprawdź</button>
+    <button class="secondary" onclick="speakCurrent()">🔊 Wymowa</button>
+  </div>
+
+  <p id="feedback"></p>
+</div>
+
+<div id="statsScreen" class="card hidden">
+  <h2>📊 Statystyki</h2>
+
+  <h3>Historia quizów</h3>
+  <ul id="quizHistory"></ul>
+
+  <h3>Statystyki słów</h3>
+  <table class="stats-table">
+    <thead>
+      <tr>
+        <th>Słowo</th>
+        <th>Poprawne</th>
+        <th>Błędne</th>
+      </tr>
+    </thead>
+    <tbody id="wordStats"></tbody>
+  </table>
+
+  <button onclick="backToMenu()">⬅ Powrót</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

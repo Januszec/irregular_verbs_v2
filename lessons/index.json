@@ -1,4 +1,4 @@
-{
-  "Czasowniki nieregularne – podstawowe": "irregular_verbs.json",
-  "Lekcja testowa": "lesson1.json"
-}
+[
+  { "id": "lesson1", "name": "Lekcja 1" },
+  { "id": "lesson2", "name": "Lekcja 2" }
+]

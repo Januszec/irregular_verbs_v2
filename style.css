@@ -25,3 +25,8 @@ input, select {
 .wrong { color: #f44336; }
 
 .hidden { display: none; }
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+}

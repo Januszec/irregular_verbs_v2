@@ -1,0 +1,15 @@
+[
+	{ "pl": "być", "base": "be", "past": "was/were", "pp": "been" },
+	{ "pl": "iść", "base": "go", "past": "went", "pp": "gone" },
+	{ "pl": "mieć", "base": "have", "past": "had", "pp": "had" },
+	{ "pl": "spotykać", "base": "meet", "past": "met", "pp": "met" },
+	{ "pl": "pływać", "base": "swim", "past": "swam", "pp": "swum" },
+	{ "pl": "brać", "base": "take", "past": "took", "pp": "taken" },
+	{ "pl": "robić", "base": "do", "past": "did", "pp": "done" },
+	{ "pl": "jeść", "base": "eat", "past": "ate", "pp": "eaten" },
+	{ "pl": "pić", "base": "drink", "past": "drank", "pp": "drunk" },
+	{ "pl": "czytać", "base": "read", "past": "read", "pp": "read" },
+	{ "pl": "spędzać, wydawać", "base": "spend", "past": "spent", "pp": "spent" },
+	{ "pl": "widzieć", "base": "see", "past": "saw", "pp": "seen" },
+	{ "pl": "robić, wykonywać", "base": "make", "past": "made", "pp": "made" }
+]

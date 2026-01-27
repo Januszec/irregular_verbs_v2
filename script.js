@@ -163,6 +163,14 @@ function showStats() {
     ).join("");
 }
 
+function clearStats() {
+  if (!confirm("Czy na pewno wyczyścić wszystkie statystyki?")) return;
+  localStorage.removeItem("quizHistory");
+  localStorage.removeItem("wordStats");
+  alert("Statystyki wyczyszczone");
+  showStats();
+}
+
 /* ---------- UTILS ---------- */
 function shuffle(a) {
   return a.sort(() => Math.random() - 0.5);
@@ -173,6 +181,7 @@ startBtn.onclick = startQuiz;
 checkBtn.onclick = checkAnswer;
 statsBtn.onclick = showStats;
 backBtn.onclick = () => location.reload();
+clearStatsBtn.onclick = clearStats;
 
 /* ---------- INIT ---------- */
 loadLessons();

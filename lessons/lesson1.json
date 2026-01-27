@@ -12,5 +12,5 @@
 	{ "pl": "spędzać, wydawać", "base": "spend", "past": "spent", "pp": "spent" },
 	{ "pl": "widzieć", "base": "see", "past": "saw", "pp": "seen" },
 	{ "pl": "robić, wykonywać", "base": "make", "past": "made", "pp": "made" },
-	{ "pl": "kupować", "base": "buy", "past": "bought", "pp": "bought" }	
+	{ "pl": "kupować", "base": "buy", "past": "bought", "pp": "bought" }
 ]

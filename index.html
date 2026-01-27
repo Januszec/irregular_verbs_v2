@@ -2,130 +2,104 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Quiz językowy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Czasowniki nieregularne</title>
 
   <style>
     body {
-      font-family: system-ui, sans-serif;
+      font-family: Arial, sans-serif;
+      padding: 16px;
       margin: 0;
-      padding: 10px;
       background: #f5f5f5;
     }
 
-    h1, h2 {
-      text-align: center;
-    }
+    .hidden { display: none; }
 
-    select, input, button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-
-    button {
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-    }
-
-    button.secondary {
-      background: #6c757d;
-    }
-
-    .card {
+    .container {
+      max-width: 420px;
+      margin: 0 auto;
       background: white;
-      padding: 15px;
+      padding: 16px;
       border-radius: 8px;
-      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
-    .hidden {
-      display: none;
-    }
-
-    .word {
-      font-size: 22px;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .row {
-      display: flex;
-      gap: 10px;
-    }
-
-    @media (max-width: 600px) {
-      .row {
-        flex-direction: column;
-      }
-    }
-
-    .stats-table {
+    input, select, button {
       width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
+      padding: 10px;
+      margin-top: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
     }
 
-    .stats-table th,
-    .stats-table td {
-      border: 1px solid #ddd;
-      padding: 6px;
-      text-align: center;
+    #feedback {
+      margin-top: 10px;
+      min-height: 28px;
+    }
+
+    .inputs input {
+      margin-top: 6px;
+    }
+
+    .green { color: green; }
+    .red { color: red; }
+
+    ul {
+      padding-left: 18px;
     }
   </style>
 </head>
 <body>
 
-<div class="app">
+<!-- START -->
+<div id="startScreen" class="container">
+  <h2>Quiz – czasowniki nieregularne</h2>
 
-<h1>Quiz językowy</h1>
-
-<div class="card">
+  <label>Lekcja</label>
   <select id="lessonSelect"></select>
-  <button onclick="startQuiz()">Start quizu</button>
-  <button class="secondary" onclick="showStats()">📊 Statystyki</button>
+
+  <label>Ilość pytań</label>
+  <input id="questionCount" type="number" value="5" min="1">
+
+  <label>Tryb</label>
+  <select id="mode">
+    <option value="three">Wpisz 3 formy</option>
+    <option value="two">Podana forma podstawowa</option>
+  </select>
+
+  <button id="startBtn">Start</button>
+  <button id="statsBtn">Statystyki</button>
 </div>
 
-<div id="quizScreen" class="card hidden">
-  <div class="word" id="question"></div>
+<!-- QUIZ -->
+<div id="quizScreen" class="container hidden">
+  <h3 id="question"></h3>
 
-  <input id="answerInput" placeholder="Twoja odpowiedź" />
-
-  <div class="row">
-    <button onclick="checkAnswer()">Sprawdź</button>
-    <button class="secondary" onclick="speakCurrent()">🔊 Wymowa</button>
+  <div class="inputs">
+    <input id="input1" placeholder="bezokolicznik">
+    <input id="input2" placeholder="past simple">
+    <input id="input3" placeholder="past participle">
   </div>
 
-  <p id="feedback"></p>
+  <div id="feedback"></div>
+
+  <button id="checkBtn">Sprawdź</button>
+  <button id="backBtn">Wróć na początek</button>
 </div>
 
-<div id="statsScreen" class="card hidden">
-  <h2>📊 Statystyki</h2>
+<!-- STATYSTYKI -->
+<div id="statsScreen" class="container hidden">
+  <h3>📊 Statystyki</h3>
 
-  <h3>Historia quizów</h3>
+  <h4>Quizy</h4>
   <ul id="quizHistory"></ul>
 
-  <h3>Statystyki słów</h3>
-  <table class="stats-table">
-    <thead>
-      <tr>
-        <th>Słowo</th>
-        <th>Poprawne</th>
-        <th>Błędne</th>
-      </tr>
-    </thead>
-    <tbody id="wordStats"></tbody>
-  </table>
+  <h4>Słówka</h4>
+  <ul id="wordStats"></ul>
 
-  <button onclick="backToMenu()">⬅ Powrót</button>
+  <button onclick="location.reload()">Wróć</button>
 </div>
 
-<script src="script.js"></script>
-
-</div>
-
+<script src="script.js" defer></script>
 </body>
 </html>

@@ -1,152 +1,178 @@
-let lessons = {};
-let currentLesson = [];
-let currentIndex = 0;
-let correct = 0;
+const state = {
+  words: [],
+  current: 0,
+  correct: 0,
+  wrong: 0,
+  lesson: "",
+  mode: "three"
+};
 
-const statsKey = "quizStats";
+const els = {
+  start: document.getElementById("startScreen"),
+  quiz: document.getElementById("quizScreen"),
+  stats: document.getElementById("statsScreen"),
+  lessonSelect: document.getElementById("lessonSelect"),
+  question: document.getElementById("question"),
+  feedback: document.getElementById("feedback"),
+  quizHistory: document.getElementById("quizHistory"),
+  wordStats: document.getElementById("wordStats")
+};
 
-function loadLesson(name) {
-  fetch("lessons/" + lessonsIndex[name])
-    .then(res => res.json())
-    .then(data => {
-      lessons = data;
-    })
-    .catch(err => console.error("Błąd lekcji:", err));
+/* ---------- AUDIO ---------- */
+function speak(text) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-GB";
+  speechSynthesis.speak(u);
 }
 
-function populateLessons() {
-  const select = document.getElementById("lessonSelect");
-  select.innerHTML = "<option value=''>-- wybierz lekcję --</option>";
+/* ---------- STORAGE ---------- */
+function getStore(key, def) {
+  return JSON.parse(localStorage.getItem(key)) || def;
+}
 
-  Object.keys(lessonsIndex).forEach(name => {
-    const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = name;
-    select.appendChild(opt);
+function setStore(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+/* ---------- LESSONS ---------- */
+async function loadLessons() {
+  const res = await fetch("lessons/index.json");
+  const lessons = await res.json();
+
+  els.lessonSelect.innerHTML = "";
+  lessons.forEach(l => {
+    const o = document.createElement("option");
+    o.value = l.id;
+    o.textContent = l.name;
+    els.lessonSelect.appendChild(o);
   });
 }
 
-function startQuiz() {
-  const select = document.getElementById("lessonSelect");
-  const lessonName = select.value;
-
-  if (!lessonName) {
-    alert("Wybierz lekcję");
-    return;
-  }
-
-  currentLesson = [...lessons[lessonName]];
-  currentIndex = 0;
-  correct = 0;
-
-  document.getElementById("quizScreen").classList.remove("hidden");
-  document.getElementById("statsScreen").classList.add("hidden");
-
-  showQuestion();
+/* ---------- QUIZ ---------- */
+function resetState() {
+  state.current = 0;
+  state.correct = 0;
+  state.wrong = 0;
+  els.feedback.innerHTML = "";
 }
 
-function showQuestion() {
-  document.getElementById("feedback").textContent = "";
-  document.getElementById("answerInput").value = "";
-  document.getElementById("question").textContent =
-    currentLesson[currentIndex].question;
+async function startQuiz() {
+  resetState();
+
+  state.lesson = els.lessonSelect.value;
+  state.mode = document.getElementById("mode").value;
+  const count = Number(document.getElementById("questionCount").value);
+
+  const res = await fetch(`lessons/${state.lesson}.json`);
+  const all = await res.json();
+
+  state.words = shuffle(all).slice(0, count);
+
+  els.start.classList.add("hidden");
+  els.quiz.classList.remove("hidden");
+
+  showWord();
+}
+
+function showWord() {
+  const w = state.words[state.current];
+  if (!w) return endQuiz();
+
+  els.question.textContent = `Znaczenie: ${w.pl}`;
+
+  ["input1","input2","input3"].forEach(id => {
+    document.getElementById(id).value = "";
+  });
+
+  if (state.mode === "two") {
+    input1.value = w.base;
+    input1.disabled = true;
+  } else {
+    input1.disabled = false;
+  }
+
+  els.feedback.innerHTML = "";
 }
 
 function checkAnswer() {
-  const input = document.getElementById("answerInput").value.trim();
-  const item = currentLesson[currentIndex];
+  const w = state.words[state.current];
 
-  const isCorrect = item.answers.includes(input);
+  const a1 = input1.value.trim().toLowerCase();
+  const a2 = input2.value.trim().toLowerCase();
+  const a3 = input3.value.trim().toLowerCase();
 
-  saveWordStat(item.question, isCorrect);
+  const ok = a1 === w.base && a2 === w.past && a3 === w.pp;
 
-  if (isCorrect) {
-    correct++;
-    document.getElementById("feedback").textContent = "✅ Poprawnie!";
-    nextQuestion();
+  updateWordStats(w.base, ok);
+
+  if (ok) {
+    els.feedback.innerHTML = `<span class="green">✔ Poprawnie</span>`;
+    state.correct++;
   } else {
-    document.getElementById("feedback").textContent =
-      "❌ Błąd. Poprawne: " + item.answers.join(", ");
+    els.feedback.innerHTML =
+      `<span class="red">✖ ${w.base} – ${w.past} – ${w.pp}</span>`;
+    speak(`${w.base}. ${w.past}. ${w.pp}`);
+    state.wrong++;
   }
+
+  state.current++;
+  setTimeout(showWord, 1300);
 }
 
-function nextQuestion() {
-  setTimeout(() => {
-    currentIndex++;
-    if (currentIndex >= currentLesson.length) {
-      finishQuiz();
-    } else {
-      showQuestion();
-    }
-  }, 800);
-}
-
-function finishQuiz() {
+function endQuiz() {
   saveQuizResult();
-  alert(`Koniec! Wynik: ${correct}/${currentLesson.length}`);
-  backToMenu();
+  alert(`Koniec!\n✔ ${state.correct} ✖ ${state.wrong}`);
+  location.reload();
 }
 
-/* 🔊 WYMOWA */
-function speakCurrent() {
-  const item = currentLesson[currentIndex];
-  item.answers.forEach(word => {
-    const u = new SpeechSynthesisUtterance(word);
-    u.lang = "de-DE"; // zmień język jeśli trzeba
-    speechSynthesis.speak(u);
-  });
-}
-
-/* 📊 STATYSTYKI */
-function loadStats() {
-  return JSON.parse(localStorage.getItem(statsKey)) || {
-    quizzes: [],
-    words: {}
-  };
-}
-
+/* ---------- STATS ---------- */
 function saveQuizResult() {
-  const stats = loadStats();
-  stats.quizzes.push({
+  const history = getStore("quizHistory", []);
+  history.push({
     date: new Date().toLocaleString(),
-    score: `${correct}/${currentLesson.length}`
+    lesson: state.lesson,
+    correct: state.correct,
+    total: state.correct + state.wrong
   });
-  localStorage.setItem(statsKey, JSON.stringify(stats));
+  setStore("quizHistory", history);
 }
 
-function saveWordStat(word, isCorrect) {
-  const stats = loadStats();
-  if (!stats.words[word]) {
-    stats.words[word] = { ok: 0, bad: 0 };
-  }
-  isCorrect ? stats.words[word].ok++ : stats.words[word].bad++;
-  localStorage.setItem(statsKey, JSON.stringify(stats));
+function updateWordStats(word, ok) {
+  const stats = getStore("wordStats", {});
+  if (!stats[word]) stats[word] = { shown: 0, wrong: 0 };
+
+  stats[word].shown++;
+  if (!ok) stats[word].wrong++;
+
+  setStore("wordStats", stats);
 }
 
 function showStats() {
-  const stats = loadStats();
+  els.start.classList.add("hidden");
+  els.stats.classList.remove("hidden");
 
-  document.getElementById("quizScreen").classList.add("hidden");
-  document.getElementById("statsScreen").classList.remove("hidden");
+  const history = getStore("quizHistory", []);
+  els.quizHistory.innerHTML = history
+    .map(h => `<li>${h.date} – ${h.lesson}: ${h.correct}/${h.total}</li>`)
+    .join("");
 
-  const history = document.getElementById("quizHistory");
-  history.innerHTML = "";
-  stats.quizzes.forEach(q => {
-    const li = document.createElement("li");
-    li.textContent = `${q.date} – ${q.score}`;
-    history.appendChild(li);
-  });
-
-  const tbody = document.getElementById("wordStats");
-  tbody.innerHTML = "";
-  Object.entries(stats.words).forEach(([word, s]) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${word}</td><td>${s.ok}</td><td>${s.bad}</td>`;
-    tbody.appendChild(tr);
-  });
+  const stats = getStore("wordStats", {});
+  els.wordStats.innerHTML = Object.entries(stats)
+    .map(([w,s]) =>
+      `<li>${w}: ${s.shown - s.wrong}/${s.shown}</li>`
+    ).join("");
 }
 
-function backToMenu() {
-  document.getElementById("quizScreen").classList.add("hidden");
-  document.getElementById("statsScreen").classList.add("hidden");
+/* ---------- UTILS ---------- */
+function shuffle(a) {
+  return a.sort(() => Math.random() - 0.5);
 }
+
+/* ---------- EVENTS ---------- */
+startBtn.onclick = startQuiz;
+checkBtn.onclick = checkAnswer;
+statsBtn.onclick = showStats;
+backBtn.onclick = () => location.reload();
+
+/* ---------- INIT ---------- */
+loadLessons();

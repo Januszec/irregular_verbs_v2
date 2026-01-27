@@ -25,7 +25,14 @@ function populateLessons() {
 }
 
 function startQuiz() {
-  const lessonName = lessonSelect.value;
+  const select = document.getElementById("lessonSelect");
+  const lessonName = select.value;
+
+  if (!lessonName) {
+    alert("Wybierz lekcję");
+    return;
+  }
+
   currentLesson = [...lessons[lessonName]];
   currentIndex = 0;
   correct = 0;

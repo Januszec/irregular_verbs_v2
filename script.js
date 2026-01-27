@@ -66,7 +66,7 @@ async function startQuiz() {
   const res = await fetch(`lessons/${state.lesson}.json`);
   const all = await res.json();
 
-  state.words = shuffle(all).slice(0, count);
+  state.words = weightedPick(all, count);
 
   els.start.classList.add("hidden");
   els.quiz.classList.remove("hidden");
@@ -169,6 +169,32 @@ function clearStats() {
   localStorage.removeItem("wordStats");
   alert("Statystyki wyczyszczone");
   showStats();
+}
+
+function getWordWeight(word) {
+  const stats = getStore("wordStats", {});
+  const s = stats[word.base];
+
+  if (!s) return 1; // nowe słowo
+
+  const accuracy = (s.shown - s.wrong) / s.shown;
+
+  if (accuracy < 0.5) return 5;
+  if (accuracy < 0.8) return 3;
+  return 1;
+}
+
+function weightedPick(words, count) {
+  const pool = [];
+
+  words.forEach(w => {
+    const weight = getWordWeight(w);
+    for (let i = 0; i < weight; i++) {
+      pool.push(w);
+    }
+  });
+
+  return shuffle(pool).slice(0, count);
 }
 
 /* ---------- UTILS ---------- */

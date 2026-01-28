@@ -95,14 +95,19 @@ function checkAnswer() {
 
   const ok = a1 === w.base && a2 === w.past && a3 === w.pp;
 
-  if (ok) {
-    correctCount++;
-    document.getElementById("feedback").innerHTML = `<span class="green">✔</span>`;
-  } else {
-    document.getElementById("feedback").innerHTML = 
-      `<span class="red">✖ ${w.base} – ${w.past} – ${w.pp}</span>`;
-    if (voiceEnabled) speak(`${w.base}. ${w.past}. ${w.pp}`);
+if (ok) {
+  correctCount++;
+  document.getElementById("feedback").innerHTML = `<span class="green">✔</span>`;
+  if (voiceEnabled) {
+    speak(`${w.base}. ${w.past}. ${w.pp}`);
   }
+} else {
+  document.getElementById("feedback").innerHTML = 
+    `<span class="red">✖ ${w.base} – ${w.past} – ${w.pp}</span>`;
+  if (voiceEnabled) {
+    speak(`${w.base}. ${w.past}. ${w.pp}`);
+  }
+}
 
   updateWordStats(w.base, ok);
 
@@ -206,6 +211,14 @@ document.getElementById("backBtn").onclick = () => location.reload();
 document.getElementById("statsBtn").onclick = showStats;
 document.getElementById("clearStatsBtn").onclick = clearStats;
 document.getElementById("themeToggleBtn").onclick = toggleTheme;
+document.getElementById("voiceToggle").onchange = (e) => {
+  voiceEnabled = e.target.checked;
+};
+document.getElementById("backToStartFromStatsBtn").onclick = () => {
+  document.getElementById("statsScreen").classList.add("hidden");
+  document.getElementById("quizScreen").classList.add("hidden");
+  document.getElementById("startScreen").classList.remove("hidden");
+};
 
 /* ===============================
    INIT

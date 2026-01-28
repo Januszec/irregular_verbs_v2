@@ -1,106 +1,123 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Czasowniki nieregularne</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Quiz czasowników nieregularnych</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 16px;
-      margin: 0;
-      background: #f5f5f5;
-    }
+<style>
+/* GLOBAL */
+body {
+  font-family: Arial, sans-serif;
+  padding: 12px;
+  margin: 0;
+  transition: background 0.3s, color 0.3s;
+}
 
-    .hidden { display: none; }
+/* LIGHT THEME */
+body.light {
+  background: #f5f5f5;
+  color: #000;
+}
 
-    .container {
-      max-width: 420px;
-      margin: 0 auto;
-      background: white;
-      padding: 16px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
+/* DARK THEME */
+body.dark {
+  background: #222;
+  color: #eee;
+}
 
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
+/* UI */
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
 
-    #feedback {
-      margin-top: 10px;
-      min-height: 28px;
-    }
+body.dark .container {
+  background: #333;
+  box-shadow: none;
+}
 
-    .inputs input {
-      margin-top: 6px;
-    }
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
 
-    .green { color: green; }
-    .red { color: red; }
+button {
+  cursor: pointer;
+}
 
-    ul {
-      padding-left: 18px;
-    }
-  </style>
-<link rel="icon" href="data:,">
+/* FEEDBACK */
+#feedback {
+  margin-top: 10px;
+  min-height: 24px;
+}
+
+.hidden {
+  display: none;
+}
+</style>
 </head>
-<body>
 
-<!-- START -->
-<div id="startScreen" class="container">
-  <h2>Quiz – czasowniki nieregularne</h2>
+<body class="light">
 
-  <label>Lekcja</label>
+<div class="container" id="startScreen">
+  <h2>Quiz — czasowniki nieregularne</h2>
+
   <select id="lessonSelect"></select>
 
-  <label>Ilość pytań</label>
-  <input id="questionCount" type="number" value="5" min="1">
+  <input id="questionCount" type="number" min="1" value="10" placeholder="Ilość pytań">
 
-  <label>Tryb</label>
   <select id="mode">
     <option value="three">Wpisz 3 formy</option>
     <option value="two">Podana forma podstawowa</option>
   </select>
 
+  <label>
+    <input type="checkbox" id="voiceToggle" checked>
+    Włącz wymowę
+  </label>
+
   <button id="startBtn">Start</button>
-  <button id="statsBtn">Statystyki</button>
+  <button id="repeatWrongOnlyBtn">🔁 Powtarzaj tylko błędne</button>
+  <button id="statsBtn">📊 Statystyki</button>
+
+  <hr>
+
+  <button id="themeToggleBtn">🌙 Ciemny motyw</button>
 </div>
 
-<!-- QUIZ -->
-<div id="quizScreen" class="container hidden">
+<div class="container hidden" id="quizScreen">
   <h3 id="question"></h3>
 
-  <div class="inputs">
-    <input id="input1" placeholder="bezokolicznik">
-    <input id="input2" placeholder="past simple">
-    <input id="input3" placeholder="past participle">
-  </div>
+  <input id="input1" placeholder="bezokolicznik">
+  <input id="input2" placeholder="past simple">
+  <input id="input3" placeholder="past participle">
 
   <div id="feedback"></div>
 
   <button id="checkBtn">Sprawdź</button>
-  <button id="backBtn">Wróć na początek</button>
+  <button id="backBtn">⬅ Wróć do startu</button>
 </div>
 
-<!-- STATYSTYKI -->
-<div id="statsScreen" class="container hidden">
+<div class="container hidden" id="statsScreen">
   <h3>📊 Statystyki</h3>
 
-  <h4>Quizy</h4>
+  <h4>Historia quizów</h4>
   <ul id="quizHistory"></ul>
 
-  <h4>Słówka</h4>
-  <ul id="wordStats"></ul>
-  
-<button id="clearStatsBtn">🗑 Wyczyść statystyki</button>
+  <h4>Statystyki słówek</h4>
+  <ul id="wordStatsList"></ul>
 
-  <button onclick="location.reload()">Wróć</button>
+  <button id="clearStatsBtn">🗑 Wyczyść statystyki</button>
+  <button id="backToStartFromStatsBtn">⬅ Powrót</button>
 </div>
 
 <script src="script.js" defer></script>

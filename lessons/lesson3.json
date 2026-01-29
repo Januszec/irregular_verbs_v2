@@ -1,0 +1,33 @@
+[
+	{ "pl": "pożyczyć (komuś)", "base": "lend", "past": "lent", "pp": "lent" }
+	{ "pl": "kłaść (się)", "base": "lie", "past": "lay", "pp": "lain" }
+	{ "pl": "gubić, stracić", "base": "lose", "past": "lost", "pp": "lost" }
+	{ "pl": "robić", "base": "make", "past": "made", "pp": "made" }
+	{ "pl": "spotykać", "base": "meet", "past": "met", "pp": "met" }
+	{ "pl": "płacić", "base": "pay", "past": "paid", "pp": "paid" }
+	{ "pl": "kłaść", "base": "put", "past": "put", "pp": "put" }
+	{ "pl": "czytać", "base": "read", "past": "read", "pp": "read" }
+	{ "pl": "jeździć (na)", "base": "ride", "past": "rode", "pp": "ridden" }
+	{ "pl": "biegać", "base": "run", "past": "ran", "pp": "run" }
+	{ "pl": "mówić", "base": "say", "past": "said", "pp": "said" }
+	{ "pl": "widzieć", "base": "see", "past": "saw", "pp": "seen" }
+	{ "pl": "wysyłać", "base": "send", "past": "sent", "pp": "sent" }
+	{ "pl": "ustawić", "base": "set", "past": "set", "pp": "set" }
+	{ "pl": "śpiewać", "base": "sing", "past": "sang", "pp": "sung" }
+	{ "pl": "siedzieć", "base": "sit", "past": "sat", "pp": "sat" }
+	{ "pl": "spać", "base": "sleep", "past": "slept", "pp": "slept" }
+	{ "pl": "mówić", "base": "speak", "past": "spoke", "pp": "spoken" }
+	{ "pl": "spędzać, wydawać", "base": "spend", "past": "spent", "pp": "spent" }
+	{ "pl": "literować", "base": "spell", "past": "spelt/spelled", "pp": "spelt/spelled" }
+	{ "pl": "stać", "base": "stand", "past": "stood", "pp": "stood" }
+	{ "pl": "pływać", "base": "swim", "past": "swam", "pp": "swum" }
+	{ "pl": "brać", "base": "take", "past": "took", "pp": "taken" }
+	{ "pl": "powiedzieć, opowiadać", "base": "tell", "past": "told", "pp": "told" }
+	{ "pl": "myśleć", "base": "think", "past": "thought", "pp": "thought" }
+	{ "pl": "rzucać", "base": "throw", "past": "threw", "pp": "thrown" }
+	{ "pl": "rozumieć", "base": "understand", "past": "understood", "pp": "understood" }
+	{ "pl": "budzić (się)", "base": "wake", "past": "woke", "pp": "woken" }
+	{ "pl": "nosić, mieć na sobie", "base": "wear", "past": "wore", "pp": "worn" }
+	{ "pl": "wygrywać", "base": "win", "past": "won", "pp": "won" }
+	{ "pl": "pisać", "base": "write", "past": "wrote", "pp": "written" }
+]

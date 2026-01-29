@@ -1,15 +1,36 @@
 [
-	{ "pl": "być", "base": "be", "past": "was/were", "pp": "been" },
-	{ "pl": "iść", "base": "go", "past": "went", "pp": "gone" },
-	{ "pl": "mieć", "base": "have", "past": "had", "pp": "had" },
-	{ "pl": "spotykać", "base": "meet", "past": "met", "pp": "met" },
-	{ "pl": "pływać", "base": "swim", "past": "swam", "pp": "swum" },
-	{ "pl": "brać", "base": "take", "past": "took", "pp": "taken" },
-	{ "pl": "robić", "base": "do", "past": "did", "pp": "done" },
-	{ "pl": "jeść", "base": "eat", "past": "ate", "pp": "eaten" },
-	{ "pl": "pić", "base": "drink", "past": "drank", "pp": "drunk" },
-	{ "pl": "czytać", "base": "read", "past": "read", "pp": "read" },
-	{ "pl": "spędzać, wydawać", "base": "spend", "past": "spent", "pp": "spent" },
-	{ "pl": "widzieć", "base": "see", "past": "saw", "pp": "seen" },
-	{ "pl": "robić, wykonywać", "base": "make", "past": "made", "pp": "made" }
+	{ "pl": "być", "base": "be", "past": "was/were", "pp": "been" }
+	{ "pl": "stawać się", "base": "become", "past": "became", "pp": "become" }
+	{ "pl": "łamać, psuć (się), potłuc", "base": "break", "past": "broke", "pp": "broken" }
+	{ "pl": "przynosić", "base": "bring", "past": "brought", "pp": "brought" }
+	{ "pl": "budować", "base": "build", "past": "built", "pp": "built" }
+	{ "pl": "kupować", "base": "buy", "past": "bought", "pp": "bought" }
+	{ "pl": "łapać", "base": "catch", "past": "caught", "pp": "caught" }
+	{ "pl": "wybierać", "base": "choose", "past": "chose", "pp": "chosen" }
+	{ "pl": "przychodzić", "base": "come", "past": "came", "pp": "come" }
+	{ "pl": "kosztować", "base": "cost", "past": "cost", "pp": "cost" }
+	{ "pl": "ciąć", "base": "cut", "past": "cut", "pp": "cut" }
+	{ "pl": "robić", "base": "do", "past": "did", "pp": "done" }
+	{ "pl": "rysować", "base": "draw", "past": "drew", "pp": "drawn" }
+	{ "pl": "śnić, marzyć", "base": "dream", "past": "dreamed/dreamt", "pp": "dreamed/dreamt" }
+	{ "pl": "pić", "base": "drink", "past": "drank", "pp": "drunk" }
+	{ "pl": "prowadzić samochód", "base": "drive", "past": "drove", "pp": "driven" }
+	{ "pl": "jeść", "base": "eat", "past": "ate", "pp": "eaten" }
+	{ "pl": "upadać", "base": "fall", "past": "fell", "pp": "fallen" }
+	{ "pl": "karmić", "base": "feed", "past": "fed", "pp": "fed" }
+	{ "pl": "czuć (się)", "base": "feel", "past": "felt", "pp": "felt" }
+	{ "pl": "znajdować", "base": "find", "past": "found", "pp": "found" }
+	{ "pl": "latać", "base": "fly", "past": "flew", "pp": "flown" }
+	{ "pl": "zapominać", "base": "forget", "past": "forgot", "pp": "forgotten" }
+	{ "pl": "dostawać", "base": "get", "past": "got", "pp": "got" }
+	{ "pl": "dawać", "base": "give", "past": "gave", "pp": "given" }
+	{ "pl": "iść, jechać", "base": "go", "past": "went", "pp": "gone" }
+	{ "pl": "rosnąć, sadzić", "base": "grow", "past": "grew", "pp": "grown" }
+	{ "pl": "wisieć", "base": "hang", "past": "hung", "pp": "hung" }
+	{ "pl": "mieć", "base": "have", "past": "had", "pp": "had" }
+	{ "pl": "słyszeć", "base": "hear", "past": "heard", "pp": "heard" }
+	{ "pl": "(za)trzymać", "base": "keep", "past": "kept", "pp": "kept" }
+	{ "pl": "wiedzieć, znać", "base": "know", "past": "knew", "pp": "known" }
+	{ "pl": "uczyć się", "base": "learn", "past": "learned/learnt", "pp": "learned/learnt" }
+	{ "pl": "opuszczać", "base": "leave", "past": "left", "pp": "left" }
 ]
